@@ -26,7 +26,7 @@ class SwitchManagerButtonActions extends LitElement
 
     @state() scrollable = true;
 
-    @query('paper-tabs', true) tabs!: PaperTabsElement;
+    @query('paper-tabs', true) tabs?: PaperTabsElement;
 
 
     render() 
@@ -112,6 +112,8 @@ class SwitchManagerButtonActions extends LitElement
 
     protected async updated(changedProperties: Map<string, any>) 
     {
+        if( !this.tabs )
+            return;
         if (changedProperties.has('config_actions')) {
             // Set scrollable to get a proper width calculation
             this.scrollable = true;
@@ -128,7 +130,7 @@ class SwitchManagerButtonActions extends LitElement
 
     public flash( index: number )
     {
-        const element = this.tabs.querySelector(`[index="${index}"]`);
+        const element = this.tabs?.querySelector(`[index="${index}"]`);
         if( ! element )
             return;
         element.removeAttribute('feedback');
